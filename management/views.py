@@ -48,9 +48,7 @@ class EmployeeLoginView(APIView):
                     "status": True,
                     "message": "Admin Login Successful",
                     "role": employee.role,
-
                     "regi_id": employee.regi_id,
-
                     "access_token": serializer.validated_data['access'],
                     "refresh_token": serializer.validated_data['refresh'],
 
