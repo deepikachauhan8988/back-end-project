@@ -37,7 +37,6 @@ class EmployeeLoginView(APIView):
         serializer = EmployeeLoginSerializer(data=request.data)
 
         if serializer.is_valid():
-
             employee = serializer.validated_data["employee"]
 
             return Response({
