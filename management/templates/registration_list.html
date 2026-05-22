@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration List</title>
+</head>
+<body>
+    <h1>All Registrations</h1>
+    <ul>
+        {% for registration in registrations %}
+            <li>{{ registration.username }} — {{ registration.email }} — {{ registration.get_role_display }} — {{ registration.get_status_display }} — {{ registration.is_active }} — {{ registration.created_at }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

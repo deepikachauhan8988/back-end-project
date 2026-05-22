@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FAQ List</title>
+</head>
+<body>
+    <h1>All FAQs</h1>
+    <ul>
+        {% for faq in faqs %}
+            <li><strong>{{ faq.question }}</strong>: {{ faq.answer }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
