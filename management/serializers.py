@@ -6,18 +6,16 @@ from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
-# Register Serializer
 class EmployeeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employee
         fields = '__all__'
         extra_kwargs = {
-        'password': {'write_only': True}
-    }
+            'password': {'write_only': True}
+        }
 
 
-# Login Serializer
 class EmployeeLoginSerializer(serializers.Serializer):
 
     email = serializers.EmailField()

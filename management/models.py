@@ -4,11 +4,25 @@ from django.db import models
 from django.contrib.auth.hashers import make_password
 
 class Employee(models.Model):
+
+    # Role Choices
+    ROLE_CHOICES = (
+        ('admin', 'Admin'),
+        ('employee', 'Employee'),
+    )
+
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
 
     # Password Field
     password = models.CharField(max_length=255, blank=True, null=True)
+
+    # Role Field
+    role = models.CharField(
+        max_length=20,
+        choices=ROLE_CHOICES,
+        default='employee'
+    )
 
     department = models.CharField(max_length=50)
     joining_date = models.DateField()
