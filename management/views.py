@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Employee
-from .serializers import EmployeeSerializer, EmployeeLoginSerializer
+from .serializers import EmployeeRegistrationSerializer, EmployeeSerializer, EmployeeLoginSerializer
 
 
 # Register API
@@ -12,15 +12,15 @@ class EmployeeRegisterView(APIView):
 
     def post(self, request):
 
-        serializer = EmployeeSerializer(data=request.data)
+        serializer = EmployeeRegistrationSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save()
+            employee = serializer.save()
 
             return Response({
                 "status": True,
-                "message": "Employee Registered Successfully",
-                "data": serializer.data
+                "message": "User Registered Successfully",
+               
             }, status=status.HTTP_201_CREATED)
 
         return Response({
@@ -60,7 +60,7 @@ class EmployeeLoginView(APIView):
                 return Response({
 
                     "status": True,
-                    "message": "Employee Login Successful",
+                    "message": "User Login Successful",
                     "regi_id": employee.regi_id,
 
                     "access_token": serializer.validated_data['access'],

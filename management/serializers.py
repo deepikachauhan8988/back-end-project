@@ -6,6 +6,24 @@ from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
+class EmployeeRegistrationSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+    confirm_password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = Employee
+        fields = ['name', 'email', 'password', 'confirm_password']
+
+    def validate(self, data):
+        if data.get('password') != data.get('confirm_password'):
+            raise serializers.ValidationError("Passwords do not match")
+        return data
+
+    def create(self, validated_data):
+        validated_data.pop('confirm_password', None)
+        return super().create(validated_data)
+
+
 class EmployeeSerializer(serializers.ModelSerializer):
 
     class Meta:

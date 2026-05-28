@@ -54,6 +54,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 # Application definition
+CORS_ALLOWED_ORIGINS = [ "http://localhost:5173", ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -64,7 +65,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'management',
     'rest_framework',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -75,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'webpeoject.urls'

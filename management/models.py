@@ -24,12 +24,6 @@ class Employee(models.Model):
         default='employee'
     )
 
-    department = models.CharField(max_length=50)
-    joining_date = models.DateField()
-    address = models.TextField(blank=True, null=True)
-    age = models.IntegerField(blank=True, null=True)
-    dob = models.DateField(blank=True, null=True)
-
     regi_id = models.CharField(max_length=20, blank=True, null=True, unique=True)
 
     class Meta:

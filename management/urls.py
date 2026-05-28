@@ -9,7 +9,7 @@ urlpatterns = [
     path('register/', EmployeeRegisterView.as_view(), name='register'),
 
     # Login API
-    path('employee-login/', EmployeeLoginView.as_view(), name='employee-login'),
+    path('login/', EmployeeLoginView.as_view(), name='employee-login'),
 
     # Refresh Token API
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
