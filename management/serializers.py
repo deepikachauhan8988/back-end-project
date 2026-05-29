@@ -1,7 +1,7 @@
 # serializers.py
 
 from rest_framework import serializers
-from .models import Employee
+from .models import Employee, InterviewQuestion, InterviewAnswer
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -62,3 +62,32 @@ class EmployeeLoginSerializer(serializers.Serializer):
         data['employee'] = employee
 
         return data
+
+
+class InterviewQuestionSerializer(serializers.ModelSerializer):
+    """
+    Serializer for creating and retrieving interview questions
+    """
+    class Meta:
+        model = InterviewQuestion
+        fields = ['id', 'category', 'question', 'expected_answer', 'keywords', 'created_at']
+        read_only_fields = ['id', 'created_at']
+
+
+class InterviewQuestionListSerializer(serializers.ModelSerializer):
+    """
+    Serializer for listing interview questions (without expected_answer)
+    """
+    class Meta:
+        model = InterviewQuestion
+        fields = ['id', 'category', 'question']
+
+
+class InterviewAnswerSerializer(serializers.ModelSerializer):
+    """
+    Serializer for storing user answers with scores
+    """
+    class Meta:
+        model = InterviewAnswer
+        fields = ['id', 'question', 'user_answer', 'score', 'created_at']
+        read_only_fields = ['id', 'score', 'created_at']

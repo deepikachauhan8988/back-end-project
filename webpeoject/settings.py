@@ -20,6 +20,10 @@ pymysql.install_as_MySQLdb()
 from django.db.backends.mysql import base as mysql_base
 mysql_base.DatabaseWrapper.check_database_version_supported = lambda self: None
 
+# Disable RETURNING clause support for MariaDB compatibility
+from django.db.backends.mysql import features
+features.DatabaseFeatures.can_return_rows_from_bulk_insert = False
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

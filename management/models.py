@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.contrib.auth.hashers import make_password
+from django.utils import timezone
 
 class Employee(models.Model):
 
@@ -50,3 +51,38 @@ class Employee(models.Model):
             self.password = make_password(self.password)
 
         super().save(*args, **kwargs)
+
+
+class InterviewQuestion(models.Model):
+    """
+    Model for storing interview questions with keywords for answer verification
+    """
+    category = models.CharField(max_length=100)
+    question = models.TextField()
+    expected_answer = models.TextField()
+    keywords = models.TextField(help_text="Comma-separated keywords for answer matching")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "management_interview_question"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.category} - {self.question[:50]}"
+
+
+class InterviewAnswer(models.Model):
+    """
+    Model for storing user answers to interview questions with scores
+    """
+    question = models.ForeignKey(InterviewQuestion, on_delete=models.CASCADE, related_name='answers')
+    user_answer = models.TextField()
+    score = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "management_interview_answer"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Answer to {self.question.category} - Score: {self.score}"
