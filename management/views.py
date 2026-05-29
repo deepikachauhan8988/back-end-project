@@ -140,6 +140,31 @@ def create_interview_question(request):
 
 
 @api_view(['GET'])
+def get_questions_by_category(request, category):
+    try:
+        questions = InterviewQuestion.filter_by_category(category)
+        
+        if not questions.exists():
+            return Response({
+                "status": False,
+                "message": f"No questions found for category: {category}"
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = InterviewQuestionListSerializer(questions, many=True)
+        return Response({
+            "status": True,
+            "message": f"Questions retrieved successfully for category: {category}",
+            "data": serializer.data
+        }, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({
+            "status": False,
+            "message": f"Error retrieving questions: {str(e)}"
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
 def get_random_question(request):
    
     try:

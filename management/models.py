@@ -70,6 +70,11 @@ class InterviewQuestion(models.Model):
     def __str__(self):
         return f"{self.category} - {self.question[:50]}"
 
+    @classmethod
+    def filter_by_category(cls, category):
+        """Filter questions by category (case-insensitive)"""
+        return cls.objects.filter(category__iexact=category)
+
 
 class InterviewAnswer(models.Model):
     """
