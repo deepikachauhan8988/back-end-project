@@ -9,6 +9,7 @@ from .views import (
     create_interview_question,
     get_random_question,
     get_questions_by_category,
+    get_all_categories,
     check_answer
 )
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -29,6 +30,7 @@ urlpatterns = [
     # Interview System APIs
     path('question/create/', create_interview_question, name='create-question'),
     path('question/random/', get_random_question, name='random-question'),
+    path('question/categories/', get_all_categories, name='all-categories'),
     path('question/category/<str:category>/', get_questions_by_category, name='questions-by-category'),
     path('question/check-answer/', check_answer, name='check-answer'),
 ]

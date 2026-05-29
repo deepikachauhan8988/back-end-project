@@ -103,6 +103,25 @@ class EmployeeDetailView(APIView):
 
 # ==================== INTERVIEW SYSTEM APIs ====================
 
+@api_view(['GET'])
+def get_all_categories(request):
+    try:
+        categories = InterviewQuestion.objects.values_list('category', flat=True).distinct()
+        category_list = list(categories)
+        
+        return Response({
+            "status": True,
+            "message": "Categories retrieved successfully",
+            "data": category_list
+        }, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({
+            "status": False,
+            "message": f"Error retrieving categories: {str(e)}"
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 @api_view(['POST'])
 def create_interview_question(request):
   
