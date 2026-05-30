@@ -161,7 +161,7 @@ def create_interview_question(request):
 @api_view(['GET'])
 def get_questions_by_category(request, category):
     try:
-        questions = InterviewQuestion.filter_by_category(category)
+        questions = InterviewQuestion.filter_by_category(category).order_by('created_at')
         
         if not questions.exists():
             return Response({
